@@ -1,0 +1,71 @@
+Raman Analyzer
+==============
+
+Desktop interface
+-----------------
+From the project folder, run:
+   .venv/bin/python raman_gui.py
+
+Select Data folder and Save folder, choose Subtract baseline, then
+click Run analysis. Only TXT files directly inside Data folder are read.
+X min and X max default to 1000 and 3000 cm^-1. They control all Excel
+chart horizontal limits only; the fitting interval remains 1000-3000.
+Each run saves only Raman_Analysis_<timestamp>.xlsx directly in Save folder.
+Failure details are included in the Summary error column.
+The window reports progress and per-file success or failure.
+Unchecked baseline subtraction fits the raw signal; the peak model
+still includes a constant background. The workbook records the mode.
+Keep the window open until processing and Excel export have finished.
+
+Command-line interface
+----------------------
+
+1. Place your TXT spectra in data/raw.
+   Each file must have one header row followed by two tab-separated
+   columns: Raman shift and intensity.
+
+2. Open the project folder in VS Code and open a terminal.
+
+3. Run:
+   .venv/bin/python raman_batch.py
+
+   If your terminal is outside the project folder, first run:
+   cd /Users/bieyige/Documents/Projects/RamanAnalyzer
+
+4. The Excel workbook is saved to Desktop with a timestamp.
+   No additional folders, CSV files or PNG files are generated.
+   Existing input files and the original notebook are not modified.
+
+Workbook layout
+---------------
+Summary: status, filename, fitted D/G peak heights, height ratio,
+         and the remaining fit results. Row 2 contains Excel averages
+         over successful files; Excel calculates them when opened.
+Raw_Overview: raw spectra divided by their own maxima, with offsets
+              0, 1, 2, ... . This normalization is only for display.
+Individual sheets: original filename, editable raw/baseline, peak-fit
+                   and residual charts, followed by the numerical data.
+
+Code map
+--------
+Constants at the top: input/output locations and analysis settings.
+baseline_als: estimate the baseline.
+build_model: define the D, G and 2D Lorentzian peaks and bounds.
+analyze_one_file: read, clean and fit one spectrum in memory.
+export_workbook: build the Excel tables and editable charts.
+main: find files and coordinate processing.
+
+Optional paths
+--------------
+.venv/bin/python raman_batch.py --input-dir "/path/to/spectra"
+.venv/bin/python raman_batch.py --excel-dir "/path/to/results"
+
+Important interpretation
+------------------------
+I_D and I_G are fitted Lorentzian heights after baseline subtraction.
+I_D/I_G is the peak-height ratio, not the peak-area ratio.
+The fitting range is 1000-3000 cm^-1. The baseline settings and peak
+bounds are preserved from the notebook. No smoothing is applied.
+Success means numerical convergence, not proof of scientific validity.
+Inspect fits, baselines and residuals before using the reported values.
+The script does not require running any notebook cells first.
