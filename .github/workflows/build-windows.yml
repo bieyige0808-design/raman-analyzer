@@ -1,0 +1,64 @@
+name: Build Windows app
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - "raman_gui.py"
+      - "raman_batch.py"
+      - "chart_textbox.py"
+      - "requirements.txt"
+      - "RamanAnalyzer.spec"
+      - ".github/workflows/build-windows.yml"
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt pyinstaller
+
+      - name: Check Python files
+        run: python -m py_compile raman_gui.py raman_batch.py chart_textbox.py
+
+      - name: Build application
+        run: pyinstaller --clean --noconfirm RamanAnalyzer.spec
+
+      - name: Add examples and documentation
+        shell: pwsh
+        run: |
+          Copy-Item -Recurse examples dist/RamanAnalyzer/examples
+          Copy-Item README.md dist/RamanAnalyzer/README.md
+          Copy-Item LICENSE dist/RamanAnalyzer/LICENSE
+
+      - name: Verify package
+        shell: pwsh
+        run: |
+          if (-not (Test-Path "dist/RamanAnalyzer/RamanAnalyzer.exe")) {
+            throw "RamanAnalyzer.exe was not created."
+          }
+          if (-not (Test-Path "dist/RamanAnalyzer/examples/synthetic_data/synthetic_01.txt")) {
+            throw "Synthetic example data were not included."
+          }
+
+      - name: Upload Windows package
+        uses: actions/upload-artifact@v4
+        with:
+          name: RamanAnalyzer-Windows
+          path: dist/RamanAnalyzer
+          if-no-files-found: error
+          retention-days: 30

@@ -14,6 +14,25 @@ from tkinter.scrolledtext import ScrolledText
 import raman_batch as core
 
 
+def application_dir():
+    """Return the folder containing the packaged app or source files."""
+    if getattr(sys, "frozen", False):
+        return Path(sys.executable).resolve().parent
+    return Path(__file__).resolve().parent
+
+
+def default_input_dir():
+    """Prefer the bundled demonstration spectra when they are available."""
+    example_dir = application_dir() / "examples" / "synthetic_data"
+    return example_dir if example_dir.is_dir() else core.DEFAULT_INPUT_DIR
+
+
+def default_save_dir():
+    """Use the desktop when present, otherwise the user's home folder."""
+    desktop = Path.home() / "Desktop"
+    return desktop if desktop.is_dir() else Path.home()
+
+
 def open_result(path):
     """Open the completed workbook, preferring Excel on macOS."""
     path = str(Path(path).resolve())
@@ -86,8 +105,8 @@ class RamanApp:
         root.geometry("800x580")
         root.minsize(700, 500)
         root.protocol("WM_DELETE_WINDOW", self.close)
-        self.input_path = tk.StringVar(value=str(core.DEFAULT_INPUT_DIR))
-        self.save_path = tk.StringVar(value=str(core.DEFAULT_EXCEL_DIR))
+        self.input_path = tk.StringVar(value=str(default_input_dir()))
+        self.save_path = tk.StringVar(value=str(default_save_dir()))
         self.subtract = tk.BooleanVar(value=True)
         self.x_min = tk.StringVar(value="1000")
         self.x_max = tk.StringVar(value="3000")

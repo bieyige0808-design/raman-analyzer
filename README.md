@@ -66,6 +66,19 @@ python examples/generate_synthetic_data.py
 
 Python 3.11 or newer is recommended.
 
+### Windows application (no Python required)
+
+Open the latest successful **Build Windows app** run on the repository's
+**Actions** page and download the `RamanAnalyzer-Windows` artifact. Extract the
+downloaded ZIP file, keep all extracted files together, and double-click
+`RamanAnalyzer.exe`.
+
+The packaged application includes the synthetic demonstration spectra. The
+first launch may show a Windows security warning because this personal project
+is not code-signed.
+
+### Run from source
+
 ```bash
 git clone https://github.com/bieyige0808-design/raman-analyzer.git
 cd raman-analyzer
@@ -112,6 +125,8 @@ raman-analyzer/
 ├── raman_gui.py          # Desktop interface
 ├── raman_batch.py        # Data processing, fitting, and Excel export
 ├── chart_textbox.py      # Editable ID/IG annotation in the Excel chart
+├── RamanAnalyzer.spec    # Windows packaging configuration
+├── .github/workflows/    # Automated Windows build
 ├── examples/             # Reproducible synthetic demonstration spectra
 ├── requirements.txt      # Python dependencies
 └── RUN_INSTRUCTIONS.txt  # Additional operating notes
