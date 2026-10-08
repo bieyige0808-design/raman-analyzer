@@ -14,6 +14,18 @@ from tkinter.scrolledtext import ScrolledText
 import raman_batch as core
 
 
+def set_windows_app_id():
+    """Give Windows a stable identity for the taskbar icon."""
+    if sys.platform == "win32":
+        try:
+            import ctypes
+            ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(
+                "RamanAnalyzer.Desktop.1"
+            )
+        except (AttributeError, OSError):
+            pass
+
+
 def application_dir():
     """Return the folder containing the packaged app or source files."""
     if getattr(sys, "frozen", False):
@@ -109,10 +121,18 @@ class RamanApp:
         self.running = False
         self.events = queue.Queue()
         root.title("Raman Analyzer")
-        icon_path = resource_dir() / "assets" / "raman-analyzer.ico"
-        if icon_path.is_file():
+        self.app_icon = None
+        png_icon_path = resource_dir() / "assets" / "raman-analyzer-icon.png"
+        if png_icon_path.is_file():
             try:
-                root.iconbitmap(default=str(icon_path))
+                self.app_icon = tk.PhotoImage(file=str(png_icon_path))
+                root.iconphoto(True, self.app_icon)
+            except tk.TclError:
+                pass
+        ico_icon_path = resource_dir() / "assets" / "raman-analyzer.ico"
+        if sys.platform == "win32" and ico_icon_path.is_file():
+            try:
+                root.iconbitmap(default=str(ico_icon_path))
             except tk.TclError:
                 pass
         root.geometry("800x580")
@@ -247,6 +267,7 @@ class RamanApp:
 
 
 if __name__ == "__main__":
+    set_windows_app_id()
     root = tk.Tk()
     RamanApp(root)
     root.mainloop()

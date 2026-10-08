@@ -58,6 +58,9 @@ jobs:
           if (-not (Test-Path "dist/RamanAnalyzer/_internal/assets/raman-analyzer.ico")) {
             throw "Application icon was not included."
           }
+          if (-not (Test-Path "dist/RamanAnalyzer/_internal/assets/raman-analyzer-icon.png")) {
+            throw "Window icon was not included."
+          }
 
       - name: Upload Windows package
         uses: actions/upload-artifact@v4

@@ -7,7 +7,10 @@ a = Analysis(
     ["raman_gui.py"],
     pathex=[],
     binaries=[],
-    datas=[("assets/raman-analyzer.ico", "assets")],
+    datas=[
+        ("assets/raman-analyzer.ico", "assets"),
+        ("assets/raman-analyzer-icon.png", "assets"),
+    ],
     hiddenimports=hidden_imports,
     hookspath=[],
     hooksconfig={},
