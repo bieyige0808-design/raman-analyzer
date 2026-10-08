@@ -13,7 +13,7 @@ from tkinter.scrolledtext import ScrolledText
 
 import raman_batch as core
 
-APP_VERSION = "1.1"
+APP_VERSION = "1.2"
 
 
 def set_windows_app_id():
@@ -22,7 +22,7 @@ def set_windows_app_id():
         try:
             import ctypes
             ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(
-                "RamanAnalyzer.Desktop.1"
+                "RamanAnalyzer.Desktop.1.2"
             )
         except (AttributeError, OSError):
             pass

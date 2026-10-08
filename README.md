@@ -69,9 +69,9 @@ Python 3.12 or newer is recommended.
 ### Windows application (no Python required)
 
 Open the latest successful **Build Windows app** run on the repository's
-**Actions** page and download the `RamanAnalyzer-Windows-v1.1` artifact. Extract the
+**Actions** page and download the `RamanAnalyzer-Windows-v1.2` artifact. Extract the
 downloaded ZIP file, keep all extracted files together, and double-click
-`RamanAnalyzer-v1.1.exe`.
+`RamanAnalyzer-v1.2.exe`.
 
 The packaged application includes the synthetic demonstration spectra. The
 first launch may show a Windows security warning because this personal project
