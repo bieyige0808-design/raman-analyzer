@@ -42,30 +42,35 @@ jobs:
       - name: Add examples and documentation
         shell: pwsh
         run: |
-          Copy-Item -Recurse examples dist/RamanAnalyzer-v1.2/examples
-          Copy-Item README.md dist/RamanAnalyzer-v1.2/README.md
-          Copy-Item LICENSE dist/RamanAnalyzer-v1.2/LICENSE
+          Copy-Item -Recurse examples dist/RamanAnalyzer-v1.3/examples
+          Copy-Item README.md dist/RamanAnalyzer-v1.3/README.md
+          Copy-Item LICENSE dist/RamanAnalyzer-v1.3/LICENSE
 
       - name: Verify package
         shell: pwsh
         run: |
-          if (-not (Test-Path "dist/RamanAnalyzer-v1.2/RamanAnalyzer-v1.2.exe")) {
-            throw "RamanAnalyzer-v1.2.exe was not created."
+          if (-not (Test-Path "dist/RamanAnalyzer-v1.3/RamanAnalyzer-v1.3.exe")) {
+            throw "RamanAnalyzer-v1.3.exe was not created."
           }
-          if (-not (Test-Path "dist/RamanAnalyzer-v1.2/examples/synthetic_data/synthetic_01.txt")) {
+          if (-not (Test-Path "dist/RamanAnalyzer-v1.3/examples/synthetic_data/synthetic_01.txt")) {
             throw "Synthetic example data were not included."
           }
-          if (-not (Test-Path "dist/RamanAnalyzer-v1.2/_internal/assets/raman-analyzer.ico")) {
+          if (-not (Test-Path "dist/RamanAnalyzer-v1.3/_internal/assets/raman-analyzer.ico")) {
             throw "Application icon was not included."
           }
-          if (-not (Test-Path "dist/RamanAnalyzer-v1.2/_internal/assets/raman-analyzer-icon.png")) {
+          if (-not (Test-Path "dist/RamanAnalyzer-v1.3/_internal/assets/raman-analyzer-icon.png")) {
             throw "Window icon was not included."
+          }
+          foreach ($size in 32, 48, 256) {
+            if (-not (Test-Path "dist/RamanAnalyzer-v1.3/_internal/assets/raman-analyzer-icon-$size.png")) {
+              throw "Window icon size $size was not included."
+            }
           }
 
       - name: Upload Windows package
         uses: actions/upload-artifact@v4
         with:
-          name: RamanAnalyzer-Windows-v1.2
-          path: dist/RamanAnalyzer-v1.2
+          name: RamanAnalyzer-Windows-v1.3
+          path: dist/RamanAnalyzer-v1.3
           if-no-files-found: error
           retention-days: 30

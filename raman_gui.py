@@ -13,7 +13,7 @@ from tkinter.scrolledtext import ScrolledText
 
 import raman_batch as core
 
-APP_VERSION = "1.2"
+APP_VERSION = "1.3"
 
 
 def set_windows_app_id():
@@ -22,7 +22,7 @@ def set_windows_app_id():
         try:
             import ctypes
             ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(
-                "RamanAnalyzer.Desktop.1.2"
+                "RamanAnalyzer.Desktop.1.3"
             )
         except (AttributeError, OSError):
             pass
@@ -123,14 +123,20 @@ class RamanApp:
         self.running = False
         self.events = queue.Queue()
         root.title(f"Raman Analyzer {APP_VERSION}")
-        self.app_icon = None
-        png_icon_path = resource_dir() / "assets" / "raman-analyzer-icon.png"
-        if png_icon_path.is_file():
-            try:
-                self.app_icon = tk.PhotoImage(file=str(png_icon_path))
-                root.iconphoto(True, self.app_icon)
-            except tk.TclError:
-                pass
+        self.app_icons = []
+        for icon_name in (
+            "raman-analyzer-icon-32.png",
+            "raman-analyzer-icon-48.png",
+            "raman-analyzer-icon-256.png",
+        ):
+            icon_path = resource_dir() / "assets" / icon_name
+            if icon_path.is_file():
+                try:
+                    self.app_icons.append(tk.PhotoImage(file=str(icon_path)))
+                except tk.TclError:
+                    pass
+        if self.app_icons:
+            root.iconphoto(True, *self.app_icons)
         root.geometry("800x580")
         root.minsize(700, 500)
         root.protocol("WM_DELETE_WINDOW", self.close)

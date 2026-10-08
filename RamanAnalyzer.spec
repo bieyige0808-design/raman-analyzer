@@ -10,6 +10,9 @@ a = Analysis(
     datas=[
         ("assets/raman-analyzer.ico", "assets"),
         ("assets/raman-analyzer-icon.png", "assets"),
+        ("assets/raman-analyzer-icon-32.png", "assets"),
+        ("assets/raman-analyzer-icon-48.png", "assets"),
+        ("assets/raman-analyzer-icon-256.png", "assets"),
     ],
     hiddenimports=hidden_imports,
     hookspath=[],
@@ -26,7 +29,7 @@ exe = EXE(
     a.scripts,
     [],
     exclude_binaries=True,
-    name="RamanAnalyzer-v1.2",
+    name="RamanAnalyzer-v1.3",
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
@@ -43,5 +46,5 @@ coll = COLLECT(
     strip=False,
     upx=True,
     upx_exclude=[],
-    name="RamanAnalyzer-v1.2",
+    name="RamanAnalyzer-v1.3",
 )
