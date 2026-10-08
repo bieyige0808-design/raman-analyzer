@@ -7,7 +7,7 @@ a = Analysis(
     ["raman_gui.py"],
     pathex=[],
     binaries=[],
-    datas=[],
+    datas=[("assets/raman-analyzer.ico", "assets")],
     hiddenimports=hidden_imports,
     hookspath=[],
     hooksconfig={},
@@ -30,6 +30,7 @@ exe = EXE(
     upx=True,
     console=False,
     disable_windowed_traceback=False,
+    icon="assets/raman-analyzer.ico",
 )
 
 coll = COLLECT(

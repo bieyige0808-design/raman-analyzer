@@ -13,6 +13,7 @@ output/
 notebooks/
 .vscode/
 .DS_Store
+assets/*-v*.png
 
 # Local secrets
 .env

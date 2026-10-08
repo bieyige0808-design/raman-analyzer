@@ -11,6 +11,7 @@ on:
       - "chart_textbox.py"
       - "requirements.txt"
       - "RamanAnalyzer.spec"
+      - "assets/**"
       - ".github/workflows/build-windows.yml"
 
 jobs:
@@ -53,6 +54,9 @@ jobs:
           }
           if (-not (Test-Path "dist/RamanAnalyzer/examples/synthetic_data/synthetic_01.txt")) {
             throw "Synthetic example data were not included."
+          }
+          if (-not (Test-Path "dist/RamanAnalyzer/_internal/assets/raman-analyzer.ico")) {
+            throw "Application icon was not included."
           }
 
       - name: Upload Windows package

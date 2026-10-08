@@ -21,6 +21,13 @@ def application_dir():
     return Path(__file__).resolve().parent
 
 
+def resource_dir():
+    """Return the folder containing resources bundled by PyInstaller."""
+    if getattr(sys, "frozen", False) and hasattr(sys, "_MEIPASS"):
+        return Path(sys._MEIPASS)
+    return Path(__file__).resolve().parent
+
+
 def default_input_dir():
     """Prefer the bundled demonstration spectra when they are available."""
     example_dir = application_dir() / "examples" / "synthetic_data"
@@ -102,6 +109,12 @@ class RamanApp:
         self.running = False
         self.events = queue.Queue()
         root.title("Raman Analyzer")
+        icon_path = resource_dir() / "assets" / "raman-analyzer.ico"
+        if icon_path.is_file():
+            try:
+                root.iconbitmap(default=str(icon_path))
+            except tk.TclError:
+                pass
         root.geometry("800x580")
         root.minsize(700, 500)
         root.protocol("WM_DELETE_WINDOW", self.close)

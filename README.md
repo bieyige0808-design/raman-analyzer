@@ -126,6 +126,7 @@ raman-analyzer/
 ├── raman_batch.py        # Data processing, fitting, and Excel export
 ├── chart_textbox.py      # Editable ID/IG annotation in the Excel chart
 ├── RamanAnalyzer.spec    # Windows packaging configuration
+├── assets/               # Application icon assets
 ├── .github/workflows/    # Automated Windows build
 ├── examples/             # Reproducible synthetic demonstration spectra
 ├── requirements.txt      # Python dependencies
