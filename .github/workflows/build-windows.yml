@@ -42,30 +42,30 @@ jobs:
       - name: Add examples and documentation
         shell: pwsh
         run: |
-          Copy-Item -Recurse examples dist/RamanAnalyzer/examples
-          Copy-Item README.md dist/RamanAnalyzer/README.md
-          Copy-Item LICENSE dist/RamanAnalyzer/LICENSE
+          Copy-Item -Recurse examples dist/RamanAnalyzer-v1.1/examples
+          Copy-Item README.md dist/RamanAnalyzer-v1.1/README.md
+          Copy-Item LICENSE dist/RamanAnalyzer-v1.1/LICENSE
 
       - name: Verify package
         shell: pwsh
         run: |
-          if (-not (Test-Path "dist/RamanAnalyzer/RamanAnalyzer.exe")) {
-            throw "RamanAnalyzer.exe was not created."
+          if (-not (Test-Path "dist/RamanAnalyzer-v1.1/RamanAnalyzer-v1.1.exe")) {
+            throw "RamanAnalyzer-v1.1.exe was not created."
           }
-          if (-not (Test-Path "dist/RamanAnalyzer/examples/synthetic_data/synthetic_01.txt")) {
+          if (-not (Test-Path "dist/RamanAnalyzer-v1.1/examples/synthetic_data/synthetic_01.txt")) {
             throw "Synthetic example data were not included."
           }
-          if (-not (Test-Path "dist/RamanAnalyzer/_internal/assets/raman-analyzer.ico")) {
+          if (-not (Test-Path "dist/RamanAnalyzer-v1.1/_internal/assets/raman-analyzer.ico")) {
             throw "Application icon was not included."
           }
-          if (-not (Test-Path "dist/RamanAnalyzer/_internal/assets/raman-analyzer-icon.png")) {
+          if (-not (Test-Path "dist/RamanAnalyzer-v1.1/_internal/assets/raman-analyzer-icon.png")) {
             throw "Window icon was not included."
           }
 
       - name: Upload Windows package
         uses: actions/upload-artifact@v4
         with:
-          name: RamanAnalyzer-Windows
-          path: dist/RamanAnalyzer
+          name: RamanAnalyzer-Windows-v1.1
+          path: dist/RamanAnalyzer-v1.1
           if-no-files-found: error
           retention-days: 30

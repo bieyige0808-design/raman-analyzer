@@ -13,6 +13,8 @@ from tkinter.scrolledtext import ScrolledText
 
 import raman_batch as core
 
+APP_VERSION = "1.1"
+
 
 def set_windows_app_id():
     """Give Windows a stable identity for the taskbar icon."""
@@ -120,19 +122,13 @@ class RamanApp:
         self.root = root
         self.running = False
         self.events = queue.Queue()
-        root.title("Raman Analyzer")
+        root.title(f"Raman Analyzer {APP_VERSION}")
         self.app_icon = None
         png_icon_path = resource_dir() / "assets" / "raman-analyzer-icon.png"
         if png_icon_path.is_file():
             try:
                 self.app_icon = tk.PhotoImage(file=str(png_icon_path))
                 root.iconphoto(True, self.app_icon)
-            except tk.TclError:
-                pass
-        ico_icon_path = resource_dir() / "assets" / "raman-analyzer.ico"
-        if sys.platform == "win32" and ico_icon_path.is_file():
-            try:
-                root.iconbitmap(default=str(ico_icon_path))
             except tk.TclError:
                 pass
         root.geometry("800x580")
@@ -143,7 +139,7 @@ class RamanApp:
         self.subtract = tk.BooleanVar(value=True)
         self.x_min = tk.StringVar(value="1000")
         self.x_max = tk.StringVar(value="3000")
-        self.status = tk.StringVar(value="Ready")
+        self.status = tk.StringVar(value=f"Ready — version {APP_VERSION}")
         panel = ttk.Frame(root, padding=18)
         panel.pack(fill="both", expand=True)
         panel.columnconfigure(1, weight=1)
