@@ -8,6 +8,24 @@ more reproducible. It accepts a folder of spectra, applies optional ALS baseline
 correction, performs constrained Lorentzian fitting, and writes the numerical
 results, source data, fitted curves, and editable charts into one workbook.
 
+## Screenshots
+
+### Desktop interface
+
+![Raman Analyzer desktop interface](docs/images/gui.png)
+
+### Editable spectra overview
+
+![Editable Raman spectra overview in Excel](docs/images/excel_overview.png)
+
+### Peak fitting results
+
+![D, G, and 2D peak fitting results](docs/images/excel_peak_fitting.png)
+
+### Analysis summary
+
+![Raman analysis summary](docs/images/excel_summary.png)
+
 ## Features
 
 - Simple desktop interface built with Tkinter
@@ -30,6 +48,19 @@ Each `.txt` file must contain:
 2. Two tab-separated columns: Raman shift and intensity
 
 Only TXT files directly inside the selected data folder are processed.
+
+## Quick demonstration
+
+The repository includes five reproducible synthetic spectra in
+`examples/synthetic_data`. They are artificial demonstration data, not
+experimental measurements. Select that folder in the desktop interface to test
+the complete workflow without using private research data.
+
+The files can be regenerated with:
+
+```bash
+python examples/generate_synthetic_data.py
+```
 
 ## Installation
 
@@ -81,6 +112,7 @@ raman-analyzer/
 ├── raman_gui.py          # Desktop interface
 ├── raman_batch.py        # Data processing, fitting, and Excel export
 ├── chart_textbox.py      # Editable ID/IG annotation in the Excel chart
+├── examples/             # Reproducible synthetic demonstration spectra
 ├── requirements.txt      # Python dependencies
 └── RUN_INSTRUCTIONS.txt  # Additional operating notes
 ```
