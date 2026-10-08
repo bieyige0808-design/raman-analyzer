@@ -64,7 +64,7 @@ python examples/generate_synthetic_data.py
 
 ## Installation
 
-Python 3.11 or newer is recommended.
+Python 3.12 or newer is recommended.
 
 ### Windows application (no Python required)
 
